@@ -9,3 +9,9 @@ Change line in docker-compose.yml
 Specify path to sharetribe project insead of `../../sharetribe`
 
 Run `docker-compose up`
+
+After your docker will be running open second terminal and exectute command
+
+` docker exec -it sharetribe_workspace_development_1 bash `
+
+For enter inside the container. Run `cd /home/developer/sharetribe ` inside container
