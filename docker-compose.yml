@@ -1,0 +1,26 @@
+version: '3.1'
+
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_USER: root
+    volumes:
+      - ./db_storage/lib:/var/lib/mysql:rw
+
+  development:
+    build: .
+    image: sharetribe_environment
+    links:
+      - db
+    volumes:
+      - ../../sharetribe:/home/developer/sharetribe
+    ports:
+      - "5000:5000"
+    environment:
+      MYSQL_CONNECTION: mysql
+      MYSQL_HOST: db
+      MYSQL_PORT: 3306
+      MYSQL_PASSWORD: example
+      MYSQL_USER: root
