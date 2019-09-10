@@ -108,15 +108,19 @@ RUN npm install
 
 RUN export PATH=$PATH:/opt/gem_folder/
 
-RUN apt-get install mysql-client unixodbc libpq5
-RUN dpkg -i sphinxsearch_2.2.11-dev-0ubuntu12~trusty_amd64.deb
-RUN add-apt-repository ppa:builds/sphinxsearch-rel22 && apt-get update
-RUN apt-get install sphinxsearch
+RUN wget -q http://sphinxsearch.com/files/sphinx-3.0.2-2592786-linux-amd64.tar.gz && \
+    tar zxf sphinx-3.0.2-2592786-linux-amd64.tar.gz && \
+    cd sphinx-3.0.2-2592786-linux-amd64/bin && \
+    ./searchd
+#RUN dpkg -i sphinxsearch_2.2.11-dev-0ubuntu12~trusty_amd64.deb
+#RUN add-apt-repository ppa:builds/sphinxsearch-rel22 && apt-get update
+#RUN apt-get install sphinxsearch
 
-RUN apt update && apt-get install build-essential
-RUN wget https://www.imagemagick.org/download/ImageMagick.tar.gz && \
-    tar xvzf ImageMagick.tar.gz && \
-    cd ImageMagick-7.0.8-26/ && \
+#RUN apt-get update && apt-get install build-essential
+RUN apt-get update && wget https://www.imagemagick.org/download/ImageMagick.tar.gz
+RUN tar xvzf ImageMagick.tar.gz
+RUN ls && \
+    cd ImageMagick-7.0.8-64/ && \
     ./configure && \
     make && \
     sudo make install && \
