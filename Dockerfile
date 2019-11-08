@@ -132,17 +132,24 @@ RUN ls && \
 RUN apt-get install -q -y ssmtp mailutils
 
 # root is the person who gets all mail for userids < 1000
-RUN echo "root=balagan.astana@gmail.com" >> /etc/ssmtp/ssmtp.conf
+# root is the person who gets all mail for userids < 1000
+RUN echo "root=storage.box.ru@gmail.com" >> /etc/ssmtp/ssmtp.conf
 
 # Here is the gmail configuration (or change it to your private smtp server)
 RUN echo "mailhub=smtp.gmail.com:587" >> /etc/ssmtp/ssmtp.conf
-RUN echo "AuthUser=balagan.astana@gmail.com" >> /etc/ssmtp/ssmtp.conf
-RUN echo "AuthPass=*********" >> /etc/ssmtp/ssmtp.conf
+RUN echo "AuthUser=storage.box.ru@gmail.com" >> /etc/ssmtp/ssmtp.conf
+RUN echo "AuthPass=***********" >> /etc/ssmtp/ssmtp.conf
 
 RUN echo "UseTLS=YES" >> /etc/ssmtp/ssmtp.conf
 RUN echo "UseSTARTTLS=YES" >> /etc/ssmtp/ssmtp.conf
+
+RUN export PATH="$PATH:/opt/gem_folder"
 RUN apt-get install memcached
 RUN service memcached start
 COPY entrypoint.sh /
 WORKDIR /home/developer/sharetribe
 ENTRYPOINT ["/entrypoint.sh"]
+
+#  bundle exec rails server -b 'ssl://0.0.0.0:5000?key=.ssl/server.key&cert=.ssl/server.crt' -e production
+
+# puma -b 'tcp://0.0.0.0:5001' -e production  
