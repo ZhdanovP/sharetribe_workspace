@@ -97,7 +97,7 @@ COPY Gemfile.lock /opt/gem_folder
 
 WORKDIR /opt/gem_folder
 
-RUN bundle install --deployment --without test,development && \
+RUN bundle install && \
     gem install foreman
 
 ENV NODE_ENV production
@@ -114,19 +114,35 @@ RUN wget -q http://sphinxsearch.com/files/sphinx-3.0.2-2592786-linux-amd64.tar.g
     ./searchd
 #RUN dpkg -i sphinxsearch_2.2.11-dev-0ubuntu12~trusty_amd64.deb
 #RUN add-apt-repository ppa:builds/sphinxsearch-rel22 && apt-get update
-#RUN apt-get install sphinxsearch
+RUN apt-get install -y sphinxsearch
 
 #RUN apt-get update && apt-get install build-essential
 RUN apt-get update && wget https://www.imagemagick.org/download/ImageMagick.tar.gz
 RUN tar xvzf ImageMagick.tar.gz
 RUN ls && \
-    cd ImageMagick-7.0.8-64/ && \
+    cd ImageMagick*/ && \
     ./configure && \
     make && \
     sudo make install && \
     ldconfig /usr/local/lib
 
+# sendmail config  https://stackoverflow.com/questions/47247952/send-email-on-testing-docker-container-with-php-and-sendmail/47485123#47485123
+############################################
 
+RUN apt-get install -q -y ssmtp mailutils
+
+# root is the person who gets all mail for userids < 1000
+RUN echo "root=balagan.astana@gmail.com" >> /etc/ssmtp/ssmtp.conf
+
+# Here is the gmail configuration (or change it to your private smtp server)
+RUN echo "mailhub=smtp.gmail.com:587" >> /etc/ssmtp/ssmtp.conf
+RUN echo "AuthUser=balagan.astana@gmail.com" >> /etc/ssmtp/ssmtp.conf
+RUN echo "AuthPass=3732264Ss" >> /etc/ssmtp/ssmtp.conf
+
+RUN echo "UseTLS=YES" >> /etc/ssmtp/ssmtp.conf
+RUN echo "UseSTARTTLS=YES" >> /etc/ssmtp/ssmtp.conf
+RUN apt-get install memcached
+RUN service memcached start
 COPY entrypoint.sh /
-
+WORKDIR /home/developer/sharetribe
 ENTRYPOINT ["/entrypoint.sh"]
