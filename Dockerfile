@@ -137,7 +137,7 @@ RUN echo "root=balagan.astana@gmail.com" >> /etc/ssmtp/ssmtp.conf
 # Here is the gmail configuration (or change it to your private smtp server)
 RUN echo "mailhub=smtp.gmail.com:587" >> /etc/ssmtp/ssmtp.conf
 RUN echo "AuthUser=balagan.astana@gmail.com" >> /etc/ssmtp/ssmtp.conf
-RUN echo "AuthPass=3732264Ss" >> /etc/ssmtp/ssmtp.conf
+RUN echo "AuthPass=*********" >> /etc/ssmtp/ssmtp.conf
 
 RUN echo "UseTLS=YES" >> /etc/ssmtp/ssmtp.conf
 RUN echo "UseSTARTTLS=YES" >> /etc/ssmtp/ssmtp.conf
