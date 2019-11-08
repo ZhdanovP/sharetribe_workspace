@@ -150,6 +150,6 @@ COPY entrypoint.sh /
 WORKDIR /home/developer/sharetribe
 ENTRYPOINT ["/entrypoint.sh"]
 
-#  bundle exec rails server -b 'ssl://0.0.0.0:5000?key=.ssl/server.key&cert=.ssl/server.crt' -e production
+#  bundle exec rails server -b 'ssl://0.0.0.0:5000?key=.ssl/server.key&cert=.ssl/chain.crt' -e production
 
 # puma -b 'tcp://0.0.0.0:5001' -e production  
