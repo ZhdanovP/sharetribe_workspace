@@ -29,7 +29,7 @@ gem 'delayed_paperclip', '~> 3.0.1'
 
 gem 'aws-sdk', '~> 2.9.25'
 gem "will_paginate", '~> 3.1.7'
-gem 'dalli', '~> 2.7.10'
+gem 'dalli', '~> 3.2.3'
 gem "memcachier", '~> 0.0.2'
 gem 'redis', '~> 4.1', '>= 4.1.1'
 gem 'hiredis', '~> 0.6.3'
